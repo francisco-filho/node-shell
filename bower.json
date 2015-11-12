@@ -1,0 +1,25 @@
+{
+  "name": "node-shell",
+  "description": "Esqueleto de projeto Node para ser utilizado com start point.",
+  "main": "server.js",
+  "authors": [
+    "francisco@capimgrosso.com"
+  ],
+  "license": "ISC",
+  "moduleType": [
+    "amd",
+    "node"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "angular": "~1.4.7"
+  }
+}
