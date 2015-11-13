@@ -8,12 +8,13 @@ var app = express();
 
 app.set('port', 3000);
 app.use(express.static(path.join(__dirname, 'public/')));
+app.use(express.static(path.join(__dirname, 'lib/')));
 app.use(bodyParser.json({extended: false}));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(logger('combined'));
 
 app.all('/', function(req, res){
-    res.json('{"success": true}')
+    res.json('{"success": true}');
 });
 
 http.createServer(app).listen(3000, function(){

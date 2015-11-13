@@ -3,8 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <style type="text/css">
+        body {
+            margin:0;
+            padding:0;
+        }
+        .components {
+            padding:20px;
+            margin-left: 100px;
+        }
+        .button {
+            position: relative;
+            font-family: Arial, Roboto;
+            background-color: #f8f8f8;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            color: rgb(97,97,97);
+            text-decoration: none;
+            display: inline-block;
+            min-width: 70px;
+            text-align: center;
+            box-shadow: 0 1px 3px #ccc;
+            outline: 0;
+        }
+        .button:hover {
+            background-color: #f2f2f2;
+        }
+
+        .ripple-container {
+            position: relative;
+            overflow: hidden;
+            width:100%;
+            height:100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .ripple {
+            position: absolute;
+        }
+        .ripple-active {
+            position: absolute;
+            transition: all 0.3s ease-out;
+            opacity: 0;
+            /* margin: auto auto; */
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #f8f8f8;
+        }
+    </style>
 </head>
 <body>
     <h1>Index File</h1> 
+    <div class="components">
+        <a href=# class="button">Button</a>
+        <a href=# class="button">Button</a>
+        <a href=# class="button">Button</a>
+    </div>
+    <script type="text/javascript" src="vendor/jquery/dist/jquery.js"></script>
+    <script type="text/javascript">
+        function ripple(el){
+            this.$el = $(el);
+            this.container = '<div class="ripple-container"><div class="ripple"></div></div>';
+            this.$el.append(this.container);
+        }
+        ripple(".button")
+
+        var timeout;
+
+        $('.button').on('mousedown', function($evt){
+            $evt.preventDefault();
+            $ripple = $('.ripple').css({top: $evt.offsetY , left: $evt.offsetX });
+            $ripple.addClass('ripple-active');
+
+            $('.ripple-active').css({
+                backgroundColor: '#bbb',
+                transform: 'scale(6)',
+                opacity: '0.3',
+            });
+        });
+         $('.button').on('mouseup', function($evt){
+            $evt.preventDefault();
+            timeout = setTimeout(function(){
+                    $('.ripple-active').css({
+                        backgroundColor: '#fff',
+                        transform: 'scale(20)',
+                        opacity: '0',
+                    });
+                    $('.ripple').removeClass('ripple-active').removeAttr('style');
+                    timeout = null;
+                }, 200);
+        }); 
+
+        $('.button').on('mouseleave', function($evt){
+            $evt.preventDefault();
+            if (timeout) return;
+            setTimeout(function(){
+                    $('.ripple-active').css({
+                        backgroundColor: '#fff',
+                        transform: 'scale(20)',
+                        opacity: '0',
+                    });
+                    $('.ripple').removeClass('ripple-active').removeAttr('style');
+                    timeout = null;
+                }, 200);
+        }) 
+    </script>
 </body>
 </html>
