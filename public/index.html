@@ -26,12 +26,15 @@
             text-align: center;
             box-shadow: 0 1px 3px #ccc;
             outline: 0;
+            z-index: 1;
         }
         .button:hover {
             background-color: #f2f2f2;
         }
 
         .ripple-container {
+            transition: background-color 0.5s ease-out;
+            background-color: transparent;
             position: relative;
             overflow: hidden;
             width:100%;
@@ -39,6 +42,7 @@
             position: absolute;
             top: 0;
             left: 0;
+            z-index: -1;
         }
         .ripple {
             position: absolute;
@@ -47,27 +51,41 @@
             position: absolute;
             transition: all 0.3s ease-out;
             opacity: 0;
-            /* margin: auto auto; */
-            width: 20px;
-            height: 20px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             background-color: #f8f8f8;
         }
+
+        .modal {
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f8f8f8;
+            border-radius: 3px;
+        }
     </style>
 </head>
-<body>
+<body ng-app="app">
     <h1>Index File</h1> 
+    <div ng-controller="MainCtrl as vm">
+        <button ng-click="vm.show()">Show Modal</button>
+        <button ng-click="vm.hide()">Hide Modal</button>
+    </div>
+
+
     <div class="components">
         <a href=# class="button">Button</a>
         <a href=# class="button">Button</a>
         <a href=# class="button">Button</a>
     </div>
     <script type="text/javascript" src="vendor/jquery/dist/jquery.js"></script>
+    <script src="vendor/angular/angular.js"></script>
+    <script src="app.js"></script>
     <script type="text/javascript">
         function ripple(el){
             this.$el = $(el);
             this.container = '<div class="ripple-container"><div class="ripple"></div></div>';
-            this.$el.append(this.container);
+            this.$el.prepend(this.container);
         }
         ripple(".button")
 
@@ -77,10 +95,10 @@
             $evt.preventDefault();
             $ripple = $('.ripple').css({top: $evt.offsetY , left: $evt.offsetX });
             $ripple.addClass('ripple-active');
-
+            $('.ripple-container').css({backgroundColor: '#e0e0e0'})
             $('.ripple-active').css({
                 backgroundColor: '#bbb',
-                transform: 'scale(6)',
+                transform: 'scale(12)',
                 opacity: '0.3',
             });
         });
@@ -93,6 +111,7 @@
                         opacity: '0',
                     });
                     $('.ripple').removeClass('ripple-active').removeAttr('style');
+                    $('.ripple-container').css('backgroundColor', 'transparent');
                     timeout = null;
                 }, 200);
         }); 
@@ -107,6 +126,7 @@
                         opacity: '0',
                     });
                     $('.ripple').removeClass('ripple-active').removeAttr('style');
+                    $('.ripple-container').css('backgroundColor', 'transparent');
                     timeout = null;
                 }, 200);
         }) 
