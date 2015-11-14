@@ -8,6 +8,7 @@ var app = express();
 
 app.set('port', 3000);
 app.use(express.static(path.join(__dirname, 'public/')));
+app.use(express.static(path.join(__dirname, 'lib/')));
 app.use(bodyParser.json({extended: false}));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(logger('combined'));
