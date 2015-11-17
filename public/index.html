@@ -3,11 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <link href="vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet"></link>
+<style>
+@page {
+    margin: 25mm;
+}
+@media print {
+    p {
+        font-family: Arial;
+        font-size: 12pt;
+    }    
+        .right {
+        text-align: right;
+    }    
+}
+    
+</style>
 </head>
 <body ng-controller="MainCtrl as vm">
-    <h1>{{ vm.hello }}</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, reiciendis!</p>
+    <div class="header">
+        <p class="right">Brasilia, (DF) 2015-01-18</p>
+        <p class="right">Lorem ipsum dolor sit amet.</p>
+    </div>
+    <div class="name">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit suscipit id commodi, eligendi quos numquam?</p>
+    </div> 
+    
     <script src="vendor/jquery/dist/jquery.js"></script>
     <script src="vendor/angular/angular.js"></script> 
     <script src="app/app.js"></script>
